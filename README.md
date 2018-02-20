@@ -2,8 +2,11 @@
 A cross platform snipping tool
 
 Steps to follow in Arch Linux
-##Install tesseract
+## Install tesseract
+```
 sudo pacman -S tesseract
-##Install tesseract-data-eng
+```
+## Install tesseract-data-eng
+```
 sudo pacman -S tesseract-data-eng
-
+```
