@@ -27,6 +27,28 @@ class Copure(QWidget):
         self.setLayout(self.mainLayout)
         self.setWindowTitle("Copure")
 
+        self.newButton.clicked.connect(self.doNew)
+        self.loadButton.clicked.connect(self.doLoad)
+        self.cropButton.clicked.connect(self.doCrop)
+        self.readButton.clicked.connect(self.doRead)
+        self.sendButton.clicked.connect(self.doSend)
+        self.quitButton.clicked.connect(self.close)
+
+    def doNew(self):
+        print("Inside doNew")
+
+    def doLoad(self):
+        print("Inside doLoad")
+
+    def doCrop(self):
+        print("Inside doCrop")
+
+    def doRead(self):
+        print("Inside doRead")
+
+    def doSend(self):
+        print("Inside doSend")
+
 if __name__ == '__main__':
     import sys
 
