@@ -12,52 +12,35 @@ class EmailConfigPopUp(QWidget):
 
     def initUI(self):
         self.setWindowTitle("Email configuation")
-
+        screen_resolution = app.desktop().screenGeometry()
+        width, height = screen_resolution.width(), screen_resolution.height()
+        self.setGeometry(width/2, height/2, 300, 300)
         lblUserName = QLabel("User Name", self)
         lblHostName = QLabel("Host", self)
         lblPort = QLabel("Port", self)
 
-
-        # TODO: layout adjustments
-        hlayout0 = QHBoxLayout()
+        hlayout0 = QGridLayout()
         self.tbHostAddr = QLineEdit()
-
         onlyInt = QIntValidator()
         self.tbPort = QLineEdit()
         self.tbPort.setValidator(onlyInt)
-
-        hlayout0.addWidget(lblHostName)
-        hlayout0.addWidget(self.tbHostAddr)
-        hlayout0.addWidget(lblPort)
-        hlayout0.addWidget(self.tbPort)
-
         self.tbUserName = QLineEdit()
-        hlayout1 = QHBoxLayout()
-        hlayout1.addWidget(lblUserName)
-        hlayout1.addWidget(self.tbUserName)
-
+        hlayout1 = QGridLayout()
         okButton = QPushButton("OK")
         okButton.clicked.connect(self.saveEmailConfig)
-        cancelButton = QPushButton("Cancel")    
-        cancelButton.clicked.connect(self.closePopUp)   
-        hbox = QHBoxLayout()
-        hbox.addStretch(1)
-        hbox.addWidget(okButton)
-        hbox.addWidget(cancelButton)
-        vbox = QVBoxLayout()
-        vbox.addStretch(1)
-        vbox.addLayout(hbox)
+        cancelButton = QPushButton("Cancel")
+        cancelButton.clicked.connect(self.closePopUp)
+        hlayout0.addWidget(lblHostName,0,0)
+        hlayout0.addWidget(self.tbHostAddr,0, 1, 1, 2)
+        hlayout0.addWidget(lblUserName, 1, 0)
+        hlayout0.addWidget(self.tbUserName, 1, 1, 1, 2)
+        hlayout0.addWidget(lblPort, 2, 0)
+        hlayout0.addWidget(self.tbPort, 2, 1, 1, 2)
+        hlayout0.addWidget(okButton, 3, 1, 1, 1)
+        hlayout0.addWidget(cancelButton, 3, 2, 1, 1)
 
-        vlayout = QVBoxLayout()
-        vlayout.addLayout(hlayout1)        
-        vlayout.addLayout(hlayout0)
-        vlayout.addLayout(vbox)
-
-        popUpLayout = QVBoxLayout()        
-        popUpLayout.addLayout(vlayout)
-
-        self.setLayout(popUpLayout)
-        self.setFixedSize(400, 100)
+        self.setLayout(hlayout0)
+        self.setFixedSize(400, 150)
         self.readEmailConfig()
         self.show()
     def saveEmailConfig(self):
