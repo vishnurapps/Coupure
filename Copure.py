@@ -5,6 +5,16 @@ import xml.etree.cElementTree as ET
 import time
 import re
 
+def readconfigEmail():
+    try:
+        e = ET.parse('EmailConfig.xml').getroot()
+        uname = e.find("EmailConfig").find('UserName').text
+        host = e.find("EmailConfig").find("Host").text
+        port = e.find("EmailConfig").find("Port").text
+        return uname, host, port
+    except:
+        return '','',''
+
 class EmailConfigPopUp(QWidget):
     def __init__(self):
         super().__init__()
@@ -51,16 +61,11 @@ class EmailConfigPopUp(QWidget):
         self.close()
     def closePopUp(self):
         self.close()
-    def readEmailConfig(self):        
-        try:
-            e = ET.parse('EmailConfig.xml').getroot()
-            self.tbUserName.setText(e.find("EmailConfig").find('UserName').text)
-            self.tbHostAddr.setText(e.find("EmailConfig").find("Host").text)
-            self.tbPort.setText(e.find("EmailConfig").find("Port").text)
-        except:
-            self.tbUserName.setText('')
-            self.tbHostAddr.setText('')
-            self.tbPort.setText('')
+    def readEmailConfig(self):
+        uname, host, port = readconfigEmail()
+        self.tbUserName.setText(uname)
+        self.tbHostAddr.setText(host)
+        self.tbPort.setText(port)
     def validateEmailConfig(self):
         return re.match(r"[^@]+@[^@]+\.[^@]+", self.tbUserName.text())
     def writeEmailConfig(self):        
